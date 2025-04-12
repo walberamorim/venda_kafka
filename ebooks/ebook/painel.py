@@ -6,7 +6,7 @@ PROCESSO = "ebook"
 
 if __name__ == "__main__":
     painel = KafkaConsumer(
-        bootstrap_servers=["kafka:9092"],
+        bootstrap_servers=["kafka:29092"],
         api_version=(0, 10, 1),
         auto_offset_reset="earliest",
         consumer_timeout_ms=1000)
@@ -14,6 +14,8 @@ if __name__ == "__main__":
     topico = TopicPartition(PROCESSO, 0)
     painel.assign([topico])
     painel.seek_to_beginning(topico)
+
+    print("Iniciando o painel..." + str(painel.assignment()))
 
     while True:
         for venda in painel:

@@ -20,7 +20,7 @@ def iniciar():
     iniciado = False
 
     try:
-        cliente = KafkaClient(bootstrap_servers=["kafka:9092"], api_version=(0, 10, 1))
+        cliente = KafkaClient(bootstrap_servers=["kafka:29092"], api_version=(0, 10, 1))
         cliente.add_topic(PROCESSO)
         cliente.close()
         iniciado = True
@@ -48,7 +48,7 @@ def vender_ebook():
             "quantidade": dados["quantidade"],
         }
 
-        produtor = KafkaProducer(bootstrap_servers=["kafka:9092"], api_version=(0, 10, 1))
+        produtor = KafkaProducer(bootstrap_servers=["kafka:29092"], api_version=(0, 10, 1))
         produtor.send(PROCESSO, json.dumps(venda).encode("utf-8"))
         produtor.flush()
         produtor.close()
