@@ -46,7 +46,7 @@ def executar():
         bootstrap_servers=["kafka:29092"],
         auto_offset_reset="earliest", 
         consumer_timeout_ms=1000,
-        group_id="consumidor", 
+        group_id=PROCESSO, 
         api_version=(0, 10, 1))
 
     topico = TopicPartition(PROCESSO_ANTERIOR, 0)
