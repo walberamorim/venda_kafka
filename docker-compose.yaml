@@ -1,4 +1,3 @@
-version: '3.5'
 
 services:
   zookeeper:
@@ -9,6 +8,8 @@ services:
     ports:
       - "2181:2181"
     hostname: "zookeeper"
+    networks:
+        - venda
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -24,6 +25,8 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - venda
 
   venda:
     image: venda
@@ -32,7 +35,14 @@ services:
     hostname: venda
     restart: always
     ports:
-      - "5000:5000"
+      - "5001:5000"
     volumes:
       - ./venda:/servicos
     command: python3 /servicos/servico.py
+    networks:
+      - venda
+
+networks:
+  venda:
+    name: venda
+    driver: bridge

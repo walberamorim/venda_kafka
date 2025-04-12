@@ -1,0 +1,61 @@
+
+services:
+  estoque:
+    image: estoque
+    build: .
+    container_name: estoque
+    hostname: estoque
+    restart: always
+    ports:
+      - "5003:5000"
+    volumes:
+      - ./estoque:/servicos
+    command: python3 /servicos/servico.py
+    networks:
+      - ebook
+
+  pagamento:
+    image: pagamento
+    build: .
+    container_name: pagamento
+    hostname: pagamento
+    restart: always
+    ports:
+      - "5004:5000"
+    volumes:
+      - ./pagamento:/servicos
+    command: python3 /servicos/servico.py
+    networks:
+      - ebook
+  ebook:
+    image: ebook
+    build: .
+    container_name: ebook
+    hostname: ebook
+    restart: always
+    ports:
+      - "5002:5000"
+    volumes:
+      - ./ebook:/servicos
+    command: python3 /servicos/servico.py
+    networks:
+      - ebook
+
+  remessa:
+    image: remessa
+    build: .
+    container_name: remessa
+    hostname: remessa
+    restart: always
+    ports:
+      - "5005:5000"
+    volumes:
+      - ./remessa:/servicos
+    command: python3 /servicos/servico.py
+    networks:
+      - ebook
+
+networks:
+  ebook:
+    external: true
+    name: venda
